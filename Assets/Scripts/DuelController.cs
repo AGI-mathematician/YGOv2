@@ -1,0 +1,129 @@
+using UnityEngine;
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+public class DuelController {
+	private Player _currentPlayer;
+	private CardInstance _currentCard;
+	private readonly TurnManager _turnManager;
+	private readonly RulesEngine _rulesEngine;
+	private readonly ChainManager _chainManager;
+	private readonly ActionUIHandler _actionUIHandler;
+	private readonly UIController _uiController;
+
+	public event Action<Player> OnCardDrawn;
+	public event Action<Player> OnCardChanged;
+	public event Action<Player> OnFieldChanged;
+	public event Action<Player, CardInstance> OnMonsterNormalSummoned;
+	public event Action<Player, CardInstance, CardZone, CardZone> OnCardMoved;
+	public event Action<Player, CardInstance> OnSpellActivated;
+
+	public Phase CurrentPhase => _turnManager.CurrentPhase;
+
+	public DuelController(TurnManager turnManager, RulesEngine rulesEngine, ChainManager chainManager, ActionUIHandler actionUIHandler, UIController uiController) {
+		_uiController = uiController;
+		_turnManager = turnManager;
+		_rulesEngine = rulesEngine;
+		_chainManager = chainManager;
+		_actionUIHandler = actionUIHandler;
+		_actionUIHandler.OnActionSelected += HandleActionSelected;
+		_rulesEngine.OnFieldChanged += HandleFieldChanged;
+		_rulesEngine.OnCardMoved += HandleCardMoved;
+		_rulesEngine.OnCardDrawn += HandleCardDrawn;
+	}
+
+	public void HandleCardDrawn(Player player) {
+		OnCardDrawn?.Invoke(player);
+	}
+
+	public void HandleNormalSummon(Player player, CardInstance card) {
+		OnMonsterNormalSummoned?.Invoke(player, card);
+	}
+
+	public void HandleCardMoved(Player player, CardInstance card, CardZone from, CardZone to) {
+		OnCardMoved?.Invoke(player, card, from, to);
+		foreach (Transform child in _uiController.ActionPanel)
+			UnityEngine.Object.Destroy(child.gameObject);
+	}
+
+	public void HandleFieldChanged(Player player) {
+		OnFieldChanged?.Invoke(player);
+	}
+
+	public void HandleActionSelected(CardActionType action) {
+		switch (action) {
+			case CardActionType.NormalSummon:
+				_rulesEngine.NormalSummon(_currentPlayer, _currentCard);
+				HandleNormalSummon(_currentPlayer, _currentCard);
+				break;
+//			case CardActionType.Use:
+//				UseCard(...);
+//				break;
+		}
+	}
+
+	public int RequestSpecialSummon(Player player, CardInstance card, List<CardInstance> previousZone, BattlePosition position) {
+		if (!_rulesEngine.TrySpecialSummon(player, card, previousZone)) {
+			Debug.Log("Special Summon failed rule check.");
+			return -1;
+		}
+		int index = _rulesEngine.SpecialSummon(player, card, previousZone, position);
+		OnCardChanged?.Invoke(player);   // refresh hand
+		OnFieldChanged?.Invoke(player);  // refresh field
+		return index;
+	}
+
+	public Task<bool> RequestYesNo(Player player, string message) {
+		var tcs = new TaskCompletionSource<bool>();
+		_actionUIHandler.BuildYesNo(message, _uiController.ActionPanel);
+		void Handler(bool result) {
+			_actionUIHandler.OnYesNoSelected -= Handler;
+			tcs.SetResult(result);
+		}
+		_actionUIHandler.OnYesNoSelected += Handler;
+		return tcs.Task;
+	}
+
+	public Task<CardInstance> RequestCardSelection(Player player, string message, List<CardInstance> options) {
+		var tcs = new TaskCompletionSource<CardInstance>();
+		_actionUIHandler.BuildCardSelection(options, _uiController.ActionPanel);
+		void Handler(CardInstance card) {
+			_actionUIHandler.OnCardSelected -= Handler;
+			tcs.SetResult(card);
+    		}
+		_actionUIHandler.OnCardSelected += Handler;
+		return tcs.Task;
+	}
+
+	public Task<BattlePosition> RequestBattlePosition(Player player) {
+		var tcs = new TaskCompletionSource<BattlePosition>();
+		_actionUIHandler.BuildAttackDefenseChoice(_uiController.ActionPanel);
+		void Handler(BattlePosition position) {
+			_actionUIHandler.OnBattlePositionSelected -= Handler;
+			tcs.SetResult(position);
+		}
+		_actionUIHandler.OnBattlePositionSelected += Handler;
+		return tcs.Task;
+	}
+
+	public void RefreshAvailableActions(Player player, CardInstance card, Transform parentTransform) {
+		_currentPlayer = player;
+		_currentCard = card;
+		List<CardActionType> legalActions = _rulesEngine.GetLegalActions(player, card);
+		_actionUIHandler.BuildActionButtons(legalActions, parentTransform);
+	}
+
+	public void RequestPhaseChange(Phase targetPhase) {
+		if ((int)targetPhase == (int)_turnManager.CurrentPhase + 1 )
+			_turnManager.AdvancePhase();
+		else if (_turnManager.CurrentPhase == Phase.MP1 && targetPhase == Phase.EP)
+			_turnManager.AdvanceToEP();
+	}
+
+	public void RequestActivateEffect(ChainLink link) {
+		_chainManager.AddChain(link);
+		_chainManager.ResolveChain();			//Move this line and have a system to ask players for responses
+	}
+
+}

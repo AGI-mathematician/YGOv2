@@ -1,0 +1,612 @@
+{
+  "cards": [
+		{
+			"id": 1001,
+			"name": "Elder of the Six Samurai",
+			"artwork": "SixSamurai/Elder of the Six Samurai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 400,
+			"defense": 0,
+			"level": 3,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+		},
+		{
+			"id": 1002,
+			"name": "Elder of the Six Samurai",
+			"artwork": "SixSamurai/Elder of the Six Samurai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 400,
+			"defense": 0,
+			"level": 3,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1003,
+			"name": "Kagemusha of the Six Samurai",
+			"artwork": "SixSamurai/Kagemusha of the Six Samurai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 400,
+			"defense": 1800,
+			"level": 2,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": true,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1004,
+			"name": "Kagemusha of the Six Samurai",
+			"artwork": "SixSamurai/Kagemusha of the Six Samurai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 400,
+			"defense": 1800,
+			"level": 2,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": true,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1005,
+			"name": "Legendary Six Samurai - Enishi",
+			"artwork": "SixSamurai/Legendary Six Samurai - Enishi",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1700,
+			"defense": 700,
+			"level": 4,
+			"attribute": "LIGHT",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1006,
+			"name": "Legendary Six Samurai - Kageki",
+			"artwork": "SixSamurai/Legendary Six Samurai - Kageki",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 200,
+			"defense": 2000,
+			"level": 3,
+			"attribute": "WIND",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1007,
+			"name": "Legendary Six Samurai - Kageki",
+			"artwork": "SixSamurai/Legendary Six Samurai - Kageki",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 200,
+			"defense": 2000,
+			"level": 3,
+			"attribute": "WIND",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1008,
+			"name": "Legendary Six Samurai - Kizan",
+			"artwork": "SixSamurai/Legendary Six Samurai - Kizan",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1800,
+			"defense": 500,
+			"level": 4,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1009,
+			"name": "Legendary Six Samurai - Kizan",
+			"artwork": "SixSamurai/Legendary Six Samurai - Kizan",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1800,
+			"defense": 500,
+			"level": 4,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1010,
+			"name": "Legendary Six Samurai - Kizan",
+			"artwork": "SixSamurai/Legendary Six Samurai - Kizan",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1800,
+			"defense": 500,
+			"level": 4,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1011,
+			"name": "Legendary Six Samurai - Mizuho",
+			"artwork": "SixSamurai/Legendary Six Samurai - Mizuho",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1600,
+			"defense": 1000,
+			"level": 3,
+			"attribute": "FIRE",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1012,
+			"name": "Legendary Six Samurai - Shinai",
+			"artwork": "SixSamurai/Legendary Six Samurai - Shinai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1500,
+			"defense": 1500,
+			"level": 3,
+			"attribute": "WATER",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1013,
+			"name": "Spirit of the Six Samurai",
+			"artwork": "SixSamurai/Spirit of the Six Samurai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 1600,
+			"defense": 1000,
+			"level": 3,
+			"attribute": "FIRE",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1014,
+			"name": "Grandmaster of the Six Samurai",
+			"artwork": "SixSamurai/Grandmaster of the Six Samurai",
+			"baseType": "Monster",
+			"text": " ",
+			"attack": 2100,
+			"defense": 800,
+			"level": 5,
+			"attribute": "EARTH",
+			"type": "Warrior",
+			"extraType": "None",
+			"flip": false,
+			"gemini": false,
+			"spirit": false,
+			"toon": false,
+			"tuner": false,
+			"union": false,
+			"effectType": "Effect",
+			"ritual": false,
+			"pendulum": false,
+			"restriction": "Summonable",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1015,
+			"name": "Dark Hole",
+			"artwork": "SixSamurai/Dark Hole",
+			"baseType": "Spell",
+			"text": "Destroy all monsters on the field.",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1016,
+			"name": "Asceticism of the Six Samurai",
+			"artwork": "SixSamurai/Asceticism of the Six Samurai",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Quickplay",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1017,
+			"name": "Asceticism of the Six Samurai",
+			"artwork": "SixSamurai/Asceticism of the Six Samurai",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Quickplay",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1018,
+			"name": "Gateway of the Six",
+			"artwork": "SixSamurai/Gateway of the Six",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1019,
+			"name": "Monster Reborn",
+			"artwork": "SixSamurai/Monster Reborn",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1020,
+			"name": "Reinforcement of the Army",
+			"artwork": "SixSamurai/Reinforcement of the Army",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1021,
+			"name": "Shien's Dojo",
+			"artwork": "SixSamurai/Shien's Dojo",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+		},
+		{
+			"id": 1022,
+			"name": "Shien's Dojo",
+			"artwork": "SixSamurai/Shien's Dojo",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1023,
+			"name": "Shien's Dojo",
+			"artwork": "SixSamurai/Shien's Dojo",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1024,
+			"name": "Shien's Smoke Signal",
+			"artwork": "SixSamurai/Shien's Smoke Signal",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1025,
+			"name": "Shien's Smoke Signal",
+			"artwork": "SixSamurai/Shien's Smoke Signal",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1026,
+			"name": "Shien's Smoke Signal",
+			"artwork": "SixSamurai/Shien's Smoke Signal",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1027,
+			"name": "Six Samurai United",
+			"artwork": "SixSamurai/Six Samurai United",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1028,
+			"name": "Six Samurai United",
+			"artwork": "SixSamurai/Six Samurai United",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1029,
+			"name": "Six Samurai United",
+			"artwork": "SixSamurai/Six Samurai United",
+			"baseType": "Spell",
+			"text": " ",
+			"category": "Continuous",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1030,
+			"name": "Mirror Force",
+			"artwork": "SixSamurai/Mirror Force",
+			"baseType": "Trap",
+			"text": "When an opponent's monster declares an attack: Destroy all Attack Position monsters your opponent controls.",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1031,
+			"name": "Bottomless Trap Hole",
+			"artwork": "SixSamurai/Bottomless Trap Hole",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1032,
+			"name": "Bottomless Trap Hole",
+			"artwork": "SixSamurai/Bottomless Trap Hole",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1033,
+			"name": "Compulsory Evacuation Device",
+			"artwork": "SixSamurai/Compulsory Evacuation Device",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1034,
+			"name": "Compulsory Evacuation Device",
+			"artwork": "SixSamurai/Compulsory Evacuation Device",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1035,
+			"name": "Compulsory Evacuation Device",
+			"artwork": "SixSamurai/Compulsory Evacuation Device",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1036,
+			"name": "Double-Edged Sword Technique",
+			"artwork": "SixSamurai/Double-Edged Sword Technique",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Normal",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1037,
+			"name": "Musakani Magatama",
+			"artwork": "SixSamurai/Musakani Magatama",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Counter",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1038,
+			"name": "Solemn Warning",
+			"artwork": "SixSamurai/Solemn Warning",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Counter",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1039,
+			"name": "Solemn Warning",
+			"artwork": "SixSamurai/Solemn Warning",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Counter",
+			"startingZone": "Deck"
+
+		},
+		{
+			"id": 1040,
+			"name": "Solemn Judgement",
+			"artwork": "SixSamurai/Solemn Judgement",
+			"baseType": "Trap",
+			"text": " ",
+			"category": "Counter",
+			"startingZone": "Deck"
+
+		}
+	]
+}
