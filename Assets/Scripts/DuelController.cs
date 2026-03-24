@@ -42,6 +42,7 @@ public class DuelController {
 	}
 
 	public void HandleCardMoved(Player player, CardInstance card, CardZone from, CardZone to) {
+		Debug.Log($"[HAND VIEW] {from} -> {to}");
 		OnCardMoved?.Invoke(player, card, from, to);
 		foreach (Transform child in _uiController.ActionPanel)
 			UnityEngine.Object.Destroy(child.gameObject);
@@ -51,15 +52,28 @@ public class DuelController {
 		OnFieldChanged?.Invoke(player);
 	}
 
+	public void HandleSpellActivated(Player player, CardInstance card) {
+		OnSpellActivated?.Invoke(player, card);
+	}
+
 	public void HandleActionSelected(CardActionType action) {
 		switch (action) {
 			case CardActionType.NormalSummon:
 				_rulesEngine.NormalSummon(_currentPlayer, _currentCard);
 				HandleNormalSummon(_currentPlayer, _currentCard);
 				break;
-//			case CardActionType.Use:
-//				UseCard(...);
-//				break;
+			case CardActionType.SetMonster:
+				_rulesEngine.DoSetMonster(_currentPlayer, _currentCard);
+				HandleNormalSummon(_currentPlayer, _currentCard);
+				break;
+			case CardActionType.SetBackrow:
+				_rulesEngine.DoSetBackrow(_currentPlayer, _currentCard);
+				break;
+			case CardActionType.Activate:
+				_rulesEngine.DoActivateBackrow(_currentPlayer, _currentCard);
+				OnCardChanged?.Invoke(_currentPlayer);
+				OnFieldChanged?.Invoke(_currentPlayer);
+				break;
 		}
 	}
 
@@ -86,8 +100,10 @@ public class DuelController {
 	}
 
 	public Task<CardInstance> RequestCardSelection(Player player, string message, List<CardInstance> options) {
+		Debug.Log("REQUEST CARD SELECTION CALLED");
 		var tcs = new TaskCompletionSource<CardInstance>();
 		_actionUIHandler.BuildCardSelection(options, _uiController.ActionPanel);
+		Debug.Log("BUILDING CARD SELECTION UI");
 		void Handler(CardInstance card) {
 			_actionUIHandler.OnCardSelected -= Handler;
 			tcs.SetResult(card);
@@ -110,6 +126,7 @@ public class DuelController {
 	public void RefreshAvailableActions(Player player, CardInstance card, Transform parentTransform) {
 		_currentPlayer = player;
 		_currentCard = card;
+		Debug.Log($"[SELECT] InstanceID: {_currentCard.GetHashCode()} | Card: {_currentCard.CardData.Name}");
 		List<CardActionType> legalActions = _rulesEngine.GetLegalActions(player, card);
 		_actionUIHandler.BuildActionButtons(legalActions, parentTransform);
 	}
@@ -123,7 +140,17 @@ public class DuelController {
 
 	public void RequestActivateEffect(ChainLink link) {
 		_chainManager.AddChain(link);
-		_chainManager.ResolveChain();			//Move this line and have a system to ask players for responses
+		_ = _chainManager.ResolveChain();			//Move this line and have a system to ask players for responses
+	}
+
+	public void RequestSearch(Player player, CardInstance card) {
+		_rulesEngine.Search(player, card);
+	}
+
+	public void RequestChainAddition(Player player, CardInstance card) {
+		var effect = card.GetComponent<CardEffectComponent>();
+		if (effect == null) return;
+		_rulesEngine.InitiateChainAddition(player, card, effect);
 	}
 
 }

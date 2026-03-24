@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FieldView : MonoBehaviour {
+public class BackrowFieldView : MonoBehaviour {
 	[SerializeField] private GameObject cardPrefab;
 
 	private DuelController duelController;
@@ -23,7 +23,9 @@ public class FieldView : MonoBehaviour {
 
 	private void RefreshField(Player changedPlayer) {
 		if (changedPlayer != player) return;
-		CardInstance instance = player.field.MonsterZones[zoneIndex];
+
+		CardInstance instance = player.field.SpellTrapZones[zoneIndex];
+
 		if (instance == null) {
 			if (currentCard != null) {
 				Destroy(currentCard.gameObject);
@@ -31,12 +33,13 @@ public class FieldView : MonoBehaviour {
 			}
 			return;
 		}
+
 		if (currentCard == null) {
 			GameObject obj = Instantiate(cardPrefab, transform, false);
 			obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			currentCard = obj.GetComponent<CardView>();
 		}
+
 		currentCard.Bind(instance);
-		currentCard.BattlePositionRefresh();
 	}
 }

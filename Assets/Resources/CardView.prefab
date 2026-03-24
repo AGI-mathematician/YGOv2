@@ -197,4 +197,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardView
   visual: {fileID: 4105745594097465152}
+  faceDownSprite: {fileID: -801122677345328020, guid: 3ebc476821347834fbcb0dbba9711a8b, type: 3}
   uiRoot: {fileID: 790499980057908275}

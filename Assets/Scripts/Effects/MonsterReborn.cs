@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class MonsterReborn : SpellEffectComponent, ICardEffect {
 	public const string Name = "Monster Reborn";
@@ -26,7 +27,7 @@ public class MonsterReborn : SpellEffectComponent, ICardEffect {
 		duelController.RequestActivateEffect(link);		
 	}
 
-	public async void Resolve(ChainLink link) {
+	public override async Task Resolve(ChainLink link) {
 		BattlePosition decision = await duelController.RequestBattlePosition(link.Owner);
 		duelController.RequestSpecialSummon(link.Owner, link.Targets[0].Card, owner.GY, decision); 
 	}

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Initializer : MonoBehaviour {
 
 	[SerializeField] private HandView HandContainer;
-	[SerializeField] private FieldView[] playerMonsterZones;
+	[SerializeField] private MonsterFieldView[] playerMonsterZones;
+	[SerializeField] private BackrowFieldView[] playerSpellTrapZones;
 	[SerializeField] private UIController uiController;
 	[SerializeField] private Button buttonPrefab;
 
@@ -29,6 +30,8 @@ public class Initializer : MonoBehaviour {
 		LoadPlayers();
 		for (int i = 0; i < playerMonsterZones.Length; i++)
 			playerMonsterZones[i].Initialize(duelController, Human, i);
+		for (int i = 0; i < playerSpellTrapZones.Length; i++)
+			playerSpellTrapZones[i].Initialize(duelController, Human, i);
 		HandContainer.Initialize(duelController, Human);
 		uiController.Initialize(duelController);
 		LoadDeck();
@@ -63,11 +66,13 @@ public class Initializer : MonoBehaviour {
 				case "Spell":
 					SpellCard spell = new(card.name, Enum.Parse<BaseType>(card.baseType), Resources.Load<Sprite>(card.artwork), card.text, card.id, Enum.Parse<SpellCategory>(card.category), Enum.Parse<CardZone>(card.startingZone));
 					CardInstance spellInstance = new (spell, CardZone.Deck);
+					Utility.AttachEffects(spellInstance, duelController);
 					Human.Deck.Add(spellInstance);
 					break;
 				case "Trap":
 					TrapCard trap = new(card.name, Enum.Parse<BaseType>(card.baseType), Resources.Load<Sprite>(card.artwork), card.text, card.id, Enum.Parse<TrapCategory>(card.category), Enum.Parse<CardZone>(card.startingZone));
 					CardInstance trapInstance = new (trap, CardZone.Deck);
+					Utility.AttachEffects(trapInstance, duelController);
 					Human.Deck.Add(trapInstance);
 					break;
 			}

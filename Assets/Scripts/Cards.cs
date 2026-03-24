@@ -89,42 +89,65 @@ public class TrapCard : SpellTrapCard {
 }
 
 public class CardInstance {
-	public Card CardData { get; }
-	public CardZone Zone { get; set; }
-	public bool IsFaceUp { get; set; }
-	public MoveReason LastMoveReason { get; set; }
+    public Card CardData { get; }
+    public CardZone Zone { get; set; }
+    public bool IsFaceUp { get; set; } = true;
+    public MoveReason LastMoveReason { get; set; }
 
-	public Dictionary<Type, CardComponent> Components = new();
-	
-	public CardInstance(Card card, CardZone startingZone) {
-		CardData = card;
-		Zone = startingZone;
-	}
+    public Dictionary<Type, CardComponent> Components = new();
 
-	public void AddComponent(CardComponent component) {
-		component.Owner = this;
-		Components[component.GetType()] = component;
-	}
+    public CardInstance(Card card, CardZone startingZone) {
+        CardData = card;
+        Zone = startingZone;
+    }
 
-	public T GetComponent<T>() where T : CardComponent {
-		return Components.TryGetValue(typeof(T), out var comp)
-			? (T)comp : null;
-	}
+    public void AddComponent(CardComponent component) {
+        component.Owner = this;
+        Components[component.GetType()] = component;
+    }
 
-	public bool HasComponent<T>() where T : CardComponent {
-		return Components.ContainsKey(typeof(T));
-	}
+    public T GetComponent<T>() where T : CardComponent {
+        foreach (var comp in Components.Values) {
+            if (comp is T tComp)
+                return tComp;
+        }
+        return null;
+    }
 
-	public bool TryGetComponent<T>(out T component) where T : CardComponent {
-		if (Components.TryGetValue(typeof(T), out var comp)) {
-			component = (T)comp;
-			return true;
-		}
-		component = null;
-		return false;
-	}
+    public bool HasComponent<T>() where T : CardComponent {
+        foreach (var comp in Components.Values) {
+            if (comp is T)
+                return true;
+        }
+        return false;
+    }
 
-	public void RemoveComponent<T>() where T : CardComponent {
-		Components.Remove(typeof(T));
-	}
+    public bool TryGetComponent<T>(out T component) where T : CardComponent {
+        foreach (var comp in Components.Values) {
+            if (comp is T tComp) {
+                component = tComp;
+                return true;
+            }
+        }
+        component = null;
+        return false;
+    }
+
+    public T GetOrAddComponent<T>() where T : CardComponent, new() {
+        if (!TryGetComponent<T>(out var comp)) {
+            comp = new T();
+            AddComponent(comp);
+        }
+        return comp;
+    }
+
+    public void RemoveComponent<T>() where T : CardComponent {
+        Type targetType = typeof(T);
+
+        foreach (var key in new List<Type>(Components.Keys)) {
+            if (targetType.IsAssignableFrom(key)) {
+                Components.Remove(key);
+            }
+        }
+    }
 }

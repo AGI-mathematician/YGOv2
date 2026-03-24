@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class ChainManager {
 	private Stack<ChainLink> _chain = new();
@@ -10,11 +11,14 @@ public class ChainManager {
 	public void AddChain(ChainLink link) {
 		_chain.Push(link);
 	}
-	public void ResolveChain() {
+	public async Task ResolveChain() {
 		while (_chain.Count > 0) {
 			ChainLink link = _chain.Pop();
+			Debug.Log("[CHAIN] Resolving link");
 			if (link.Effect != null)
-				link.Effect.Resolve(link);
+				Debug.Log("[CHAIN] Calling Resolve()");
+				await link.Effect.Resolve(link);
+				Debug.Log("[CHAIN] Resolve finished");
 		}
 	}
 	

@@ -20,7 +20,10 @@ public enum SpellCategory { Normal, Equip, Quickplay, Continuous, Ritual, Field 
 public enum TrapCategory { Normal, Continuous, Counter }
 
 public enum MoveReason {
+	Activated,
 	NormalSummoned,
+	SetMonster,
+	SetBackrow,
 	SpecialSummoned,
 	None,
 	Destroyed,
@@ -30,6 +33,7 @@ public enum MoveReason {
 	UsedAsMaterial,
 	Discarded,
 	Returned,
+	Resolved,
 	Banished
 }
 
@@ -39,7 +43,8 @@ public enum CardActionType {
 	Attack,
 	ChangePosition,
 	Activate,
-	Set,
+	SetMonster,
+	SetBackrow,
 	Flip,
 	SpecialSummon
 }

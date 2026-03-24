@@ -6,6 +6,7 @@ using System;
 public class CardView : MonoBehaviour, IPointerClickHandler {
 
 	[SerializeField] private Transform visual;
+	[SerializeField] private Sprite faceDownSprite;
 	public event Action<CardView> OnCardClicked;
 	public CardInstance BoundInstance { get; private set; }
 	private Image image;
@@ -18,7 +19,9 @@ public class CardView : MonoBehaviour, IPointerClickHandler {
 
 	public void Bind(CardInstance instance) {
 		BoundInstance = instance;
-		image.sprite = BoundInstance.CardData.Artwork;
+		image.sprite = BoundInstance.IsFaceUp
+			? BoundInstance.CardData.Artwork
+			: faceDownSprite;
 		BattlePositionRefresh();
 	}
 

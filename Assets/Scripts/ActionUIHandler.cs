@@ -44,11 +44,16 @@ public class ActionUIHandler {
 	}
 
 	public void BuildCardSelection(List<CardInstance> options, Transform parent) {
-		foreach (Transform child in parent)
+		Debug.Log($"[UI] Parent: {parent}");
+		Debug.Log($"[UI] Parent Active: {parent.gameObject.activeInHierarchy}");
+		Debug.Log($"[UI] Options Count: {options.Count}");
+		foreach (Transform child in parent) 
 			UnityEngine.Object.Destroy(child.gameObject);
 
 		foreach (var card in options) {
+			Debug.Log($"[UI] Creating button for: {card.CardData.Name}");
 			Button button = UnityEngine.Object.Instantiate(buttonPrefab, parent, false);
+			Debug.Log($"[UI] Button created. Active: {button.gameObject.activeInHierarchy}");
 
 			TextMeshProUGUI tmp = button.GetComponentInChildren<TextMeshProUGUI>();
 			if (tmp != null) {
@@ -56,10 +61,15 @@ public class ActionUIHandler {
     				tmp.enableAutoSizing = true;
     				tmp.fontSizeMin = 10;
     				tmp.fontSizeMax = 24;
+			} else {
+				Debug.Log("[UI] TMP component NOT FOUND");
 			}
 
 			CardInstance captured = card;
-			button.onClick.AddListener(() => OnCardSelected?.Invoke(captured));
+			button.onClick.AddListener(() => { 
+				Debug.Log($"[UI] Button clicked: {captured.CardData.Name}");
+				OnCardSelected?.Invoke(captured);
+			});
 		}
 	}
 

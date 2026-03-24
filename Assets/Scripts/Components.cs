@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public abstract class CardComponent {
 	public CardInstance Owner { get; internal set; }
-	public virtual void Register(DuelController duel) { }  
+	public virtual void Register(DuelController duel, CardInstance instance) {
+		Owner = instance;
+	}  
 }
 
 public class MonsterFieldComponent : CardComponent {
@@ -16,18 +19,20 @@ public class BackrowFieldComponent : CardComponent {
 	public bool WasSetThisTurn { get; set; }
 }
 
-public class CardEffectComponent : CardComponent {
+public abstract class CardEffectComponent : CardComponent, ICardEffect {
 	protected DuelController duelController;
+	public abstract Task Resolve(ChainLink link);
 }
 
 public abstract class MonsterEffectComponent : CardEffectComponent {
-	public abstract void Register(DuelController duelController, CardInstance instance);
+	public abstract override void Register(DuelController duelController, CardInstance instance);
 }
 
 public abstract class SpellEffectComponent : CardEffectComponent {
-	public abstract void Register(DuelController duelController, CardInstance instance);
+	public abstract override void Register(DuelController duelController, CardInstance instance);
 }
 
-public class TrapEffectComponent : CardEffectComponent {
+public abstract class TrapEffectComponent : CardEffectComponent {
+	public abstract override void Register(DuelController duelController, CardInstance instance);
 }
 

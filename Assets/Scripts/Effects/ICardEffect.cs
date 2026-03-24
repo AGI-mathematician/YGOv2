@@ -1,5 +1,6 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public interface ICardEffect {
-	void Resolve(ChainLink link);
+	Task Resolve(ChainLink link);
 }

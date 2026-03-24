@@ -31,26 +31,38 @@ public static class Utility {
 		return count;
 	}
 
-	public static void AttachEffects(CardInstance instance, DuelController duelController)
-	{
-		foreach (var type in Assembly.GetExecutingAssembly().GetTypes()
-			.Where(t => t.IsSubclassOf(typeof(MonsterEffectComponent)) && !t.IsAbstract))
-		{
-			var nameField = type.GetField("Name", BindingFlags.Public | BindingFlags.Static);
-		
-			if (nameField != null && (string)nameField.GetValue(null) == instance.CardData.Name)
-			{
-				MonsterEffectComponent effect =
-		(MonsterEffectComponent)Activator.CreateInstance(type);
+public static void AttachEffects(CardInstance instance, DuelController duelController)
+{
+    foreach (var type in Assembly.GetExecutingAssembly().GetTypes()
+        .Where(t =>
+            typeof(CardEffectComponent).IsAssignableFrom(t) &&
+            !t.IsAbstract))
+    {
+        var nameField = type.GetField("Name", BindingFlags.Public | BindingFlags.Static);
 
-	effect.Owner = instance;
-	instance.AddComponent(effect);
+        if (nameField == null)
+            continue;
 
-	effect.Register(duelController, instance);
-	break;
-			}
-		}
-	}	
+        string effectName = nameField.GetValue(null) as string;
+        string cardName = instance.CardData.Name;
+
+        // Optional: normalize to avoid hidden character issues
+        string Normalize(string s) => s?.Replace("’", "'").Trim().ToLower();
+
+        if (Normalize(effectName) == Normalize(cardName))
+        {
+            var effect = (CardEffectComponent)Activator.CreateInstance(type);
+
+            instance.AddComponent(effect);
+            effect.Register(duelController, instance);
+            Debug.Log($"[ATTACH] InstanceID: {instance.GetHashCode()} | Card: {cardName}");
+            Debug.Log($"[AttachEffects] Attached {type.Name} to {cardName}");
+            return;
+        }
+    }
+
+    Debug.LogWarning($"[AttachEffects] No effect found for {instance.CardData.Name}");
+}	
 
 	
 }

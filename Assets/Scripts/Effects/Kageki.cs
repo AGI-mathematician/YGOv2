@@ -25,7 +25,7 @@ public class Kageki : MonsterEffectComponent, ICardEffect {
 		duelController.RequestActivateEffect(new ChainLink(player, instance, this));	 
 	}
 
-	public async void Resolve(ChainLink link) {
+	public override async Task Resolve(ChainLink link) {
 		List<CardInstance> options =
 			owner.Hand
 			.Where(ci => ci.CardData is MonsterCard m &&
