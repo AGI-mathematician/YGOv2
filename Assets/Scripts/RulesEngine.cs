@@ -206,7 +206,6 @@ public class RulesEngine {
 			Debug.Log("NO EFFECT COMPONENT FOUND");
 			return;
 		}
-		InitiateChainAddition(player, card, effect);
 	}
 
 	public void InitiateChainAddition(Player player, CardInstance card, ICardEffect effect) {
@@ -225,7 +224,14 @@ public class RulesEngine {
 			var card = player.field.SpellTrapZones[i];
 			if (card == null) continue;
 			if (!card.IsFaceUp) continue;
-			if (card.CardData is not SpellCard) continue;
+			if (card.CardData is not SpellTrapCard st) continue;
+			if (st is TrapCard trap)
+				if (trap.Category == TrapCategory.Continuous) continue;
+			if (st is SpellCard spell)
+				if (spell.Category == SpellCategory.Continuous ||
+					spell.Category == SpellCategory.Field ||
+					spell.Category == SpellCategory.Equip)
+						continue;
 			player.field.SpellTrapZones[i] = null;
 			player.GY.Add(card);
 			card.Zone = CardZone.GY;

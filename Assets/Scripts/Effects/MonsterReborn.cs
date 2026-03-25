@@ -13,10 +13,11 @@ public class MonsterReborn : SpellEffectComponent, ICardEffect {
 	public override void Register(DuelController duelController, CardInstance instance) {
 		this.duelController = duelController;
 		this.instance = instance;
+		duelController.OnSpellActivated -= HandleSpellActivation;
 		duelController.OnSpellActivated += HandleSpellActivation;
 	}
 
-	public async void HandleSpellActivation(Player player, CardInstance card) {
+	public async Task HandleSpellActivation(Player player, CardInstance card) {
 		if (card != this.instance) return;
 		List<CardInstance> legalTargets = player.GY
 			.Where(ci => ci.CardData is MonsterCard)

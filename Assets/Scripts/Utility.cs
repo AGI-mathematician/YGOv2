@@ -51,6 +51,8 @@ public static void AttachEffects(CardInstance instance, DuelController duelContr
 
         if (Normalize(effectName) == Normalize(cardName))
         {
+            if (instance.Components.ContainsKey(type))
+                return;
             var effect = (CardEffectComponent)Activator.CreateInstance(type);
 
             instance.AddComponent(effect);

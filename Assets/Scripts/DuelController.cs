@@ -17,7 +17,7 @@ public class DuelController {
 	public event Action<Player> OnFieldChanged;
 	public event Action<Player, CardInstance> OnMonsterNormalSummoned;
 	public event Action<Player, CardInstance, CardZone, CardZone> OnCardMoved;
-	public event Action<Player, CardInstance> OnSpellActivated;
+	public event Func<Player, CardInstance, Task> OnSpellActivated;
 
 	public Phase CurrentPhase => _turnManager.CurrentPhase;
 
@@ -52,11 +52,14 @@ public class DuelController {
 		OnFieldChanged?.Invoke(player);
 	}
 
-	public void HandleSpellActivated(Player player, CardInstance card) {
-		OnSpellActivated?.Invoke(player, card);
+	public async Task HandleSpellActivated(Player player, CardInstance card) {
+		if (OnSpellActivated == null) return;
+		foreach (var handler in OnSpellActivated.GetInvocationList()) {
+			await ((Func<Player, CardInstance, Task>)handler)(player, card);
+		}
 	}
 
-	public void HandleActionSelected(CardActionType action) {
+	public async void HandleActionSelected(CardActionType action) {
 		switch (action) {
 			case CardActionType.NormalSummon:
 				_rulesEngine.NormalSummon(_currentPlayer, _currentCard);
@@ -71,6 +74,7 @@ public class DuelController {
 				break;
 			case CardActionType.Activate:
 				_rulesEngine.DoActivateBackrow(_currentPlayer, _currentCard);
+				await HandleSpellActivated(_currentPlayer, _currentCard);
 				OnCardChanged?.Invoke(_currentPlayer);
 				OnFieldChanged?.Invoke(_currentPlayer);
 				break;
@@ -138,9 +142,10 @@ public class DuelController {
 			_turnManager.AdvanceToEP();
 	}
 
-	public void RequestActivateEffect(ChainLink link) {
+	public async void RequestActivateEffect(ChainLink link) {
 		_chainManager.AddChain(link);
-		_ = _chainManager.ResolveChain();			//Move this line and have a system to ask players for responses
+		await _chainManager.ResolveChain();
+		_rulesEngine.CleanupBackrow(link.Owner);
 	}
 
 	public void RequestSearch(Player player, CardInstance card) {
@@ -148,6 +153,7 @@ public class DuelController {
 	}
 
 	public void RequestChainAddition(Player player, CardInstance card) {
+		Debug.Log("CHAIN ADD CALLED");
 		var effect = card.GetComponent<CardEffectComponent>();
 		if (effect == null) return;
 		_rulesEngine.InitiateChainAddition(player, card, effect);

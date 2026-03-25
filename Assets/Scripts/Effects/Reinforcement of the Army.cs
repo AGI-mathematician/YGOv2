@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-public class ShiensSmokeSignal : SpellEffectComponent, ICardEffect {
-	public const string Name = "Shiens Smoke Signal";
-	public string Message = "Select lvl 3 or lower Six Samurai to add from deck.";
+public class ReinforcementoftheArmy : SpellEffectComponent, ICardEffect {
+	public const string Name = "Reinforcement of the Army";
+	public string Message = "Select lvl 4 or lower Warrior to add from deck.";
 	protected CardInstance instance;
 
 	public override void Register(DuelController duelController, CardInstance instance) {
@@ -25,8 +25,8 @@ public class ShiensSmokeSignal : SpellEffectComponent, ICardEffect {
 		Debug.Log("RESOLVE STARTED");
 		List<CardInstance> legalTargets = link.Owner.Deck
 			.Where(x => x.CardData is MonsterCard m
-				&& m.Name.Contains("Six Samurai")
-				&& m.Level <= 3)
+				&& m.Type == MonsterType.Warrior
+				&& m.Level <= 4)
 			.ToList();
 		Debug.Log($"LEGAL TARGET COUNT: {legalTargets.Count}");
 		CardInstance target = await duelController.RequestCardSelection(link.Owner, Message, legalTargets);
